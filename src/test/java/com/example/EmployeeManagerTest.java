@@ -19,8 +19,8 @@ class EmployeeManagerTest {
     BankService bankService = mock(BankService.class);
     EmployeeRepositoryStub employeeRepositoryStub = new EmployeeRepositoryStub(
             List.of((new Employee("1", 2000)),
-                     new Employee("2", 3000),
-                     new Employee("3", 4000)));
+                    new Employee("2", 3000),
+                    new Employee("3", 4000)));
 
     BankServiceDummy bankServiceDummy = mock(BankServiceDummy.class);
 
@@ -31,20 +31,22 @@ class EmployeeManagerTest {
 
 
     @Test
-    void testIfFindEmployees(){
+    void testIfFindEmployees() {
         new Employee("1", 2000);
         new Employee("2", 3000);
         new Employee("3", 4000);
         int numberOfEmployees = employeeRepositoryStub.findAll().size();
-        assertEquals(3,numberOfEmployees);
+        assertEquals(3, numberOfEmployees);
     }
+
     @Test
-    void payEmployeesShouldBeCalledOnce(){
-        bankServiceDummy.pay("1",2000);
+    void payEmployeesShouldBeCalledOnce() {
+        bankServiceDummy.pay("1", 2000);
         verify(bankServiceDummy, Mockito.times(1)).pay("1", 2000);
     }
+
     @Test
-    void payEmployees(){
+    void payEmployees() {
         when(employeeRepository.findAll()).thenReturn(List.of(employee));
         when(employeeRepository.save(any(Employee.class))).then(returnsFirstArg());
         assertEquals(1, employeeManager.payEmployees());
@@ -53,7 +55,7 @@ class EmployeeManagerTest {
     }
 
     @Test
-    void payEmployeesWithStub(){
+    void payEmployeesWithStub() {
         int numberOfPayments = employeeManagerTest.payEmployees();
         assertEquals(3, numberOfPayments);
     }

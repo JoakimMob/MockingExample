@@ -11,7 +11,7 @@ class EmployeeRepositoryTest {
     private BankService bankService = new BankServiceDummy();
 
     @Test
-    void findAllEmployees(){
+    void findAllEmployees() {
         Employee employee1 = new Employee("1", 3000);
         Employee employee2 = new Employee("2", 3500);
         Employee employee3 = new Employee("3", 2000);
@@ -26,7 +26,7 @@ class EmployeeRepositoryTest {
     }
 
     @Test
-    void saveNewEmployee(){
+    void saveNewEmployee() {
         Employee employee1 = new Employee("1", 3000);
         Employee employee2 = new Employee("2", 3500);
         Employee employee3 = new Employee("1", 2000);
@@ -37,7 +37,7 @@ class EmployeeRepositoryTest {
         employeeRepository.save(employee4);
 
         ArrayList<Employee> employees = (ArrayList<Employee>) employeeRepository.findAll();
-        assertEquals(2,employees.size());
+        assertEquals(2, employees.size());
 
     }
 
