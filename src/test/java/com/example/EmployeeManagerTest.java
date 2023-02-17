@@ -15,20 +15,21 @@ import static org.mockito.Mockito.*;
 class EmployeeManagerTest {
 
     EmployeeRepository employeeRepository = mock(EmployeeRepository.class);
-    BankService bankService = mock(BankService.class);
+    BankService bankService = mock(BankServiceDummy.class);
+    EmployeeRepositoryStub employeeRepositoryStub = new EmployeeRepositoryStub();
 
-
+    BankServiceDummy bankServiceDummy = new BankServiceDummy();
 
     private final EmployeeManager employeeManager = new EmployeeManager(employeeRepository, bankService);
 
+    private final EmployeeManager employeeManagerTest = new EmployeeManager(employeeRepositoryStub, bankServiceDummy);
     Employee employee = mock(Employee.class);
 
 
     @Test
-    void testIfOneEmployee(){
-        when(employeeRepository.findAll()).thenReturn(List.of(new Employee("1",4000)));
-        int numberOfEmployees = new EmployeeManager(employeeRepository,bankService).payEmployees();
-        assertEquals(1,numberOfEmployees);
+    void testIfFindEmployees(){
+        int numberOfEmployees = employeeRepositoryStub.findAll().size();
+        assertEquals(3,numberOfEmployees);
     }
     @Test
     void payEmployees(){
@@ -38,4 +39,11 @@ class EmployeeManagerTest {
         verify(employee, times(1)).getSalary();
         verify(employee, times(1)).setPaid(true);
     }
+
+    @Test
+    void payEmployeesWithStub(){
+        int numberOfPayments = employeeManagerTest.payEmployees();
+        assertEquals(3, numberOfPayments);
+    }
+
 }
