@@ -2,6 +2,8 @@ package com.example;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class EmployeesIntegrationTest {
@@ -11,9 +13,15 @@ class EmployeesIntegrationTest {
     private final Employees employees = new Employees(employeeRepository, bankService);
 
     @Test
-    void payEmployees(){
+    void testPayEmployees(){
         int NrOfPayments = employees.payEmployees();
         assertEquals(3, NrOfPayments);
+    }
+
+    @Test
+    void testIfFindAllFindsEmployees(){
+        int nrOfEmployees = employeeRepository.findAll().size();
+        assertEquals(3, nrOfEmployees);
     }
 
 }
