@@ -23,8 +23,21 @@ public class EmployeeRepositoryStub implements EmployeeRepository{
     }
 
     @Override
-    public Employee save(Employee e) {
-        employees.add(e);
-        return e;
+    public Employee save(Employee employee) {
+        int index = findEmployeeByIndex(employee.getId());
+        if (index != -1){
+            employees.remove(index);
+        }
+        employees.add(employee);
+        return employee;
+    }
+
+    public int findEmployeeByIndex(String id){
+        for (int i = 0; i < employees.size(); i++) {
+            if (employees.get(i).getId() == id) {
+                return i;
+            }
+        }
+        return -1;
     }
 }
