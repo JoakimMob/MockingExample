@@ -2,6 +2,7 @@ package com.example;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
@@ -15,10 +16,10 @@ import static org.mockito.Mockito.*;
 class EmployeeManagerTest {
 
     EmployeeRepository employeeRepository = mock(EmployeeRepository.class);
-    BankService bankService = mock(BankServiceDummy.class);
+    BankService bankService = mock(BankService.class);
     EmployeeRepositoryStub employeeRepositoryStub = new EmployeeRepositoryStub();
 
-    BankServiceDummy bankServiceDummy = new BankServiceDummy();
+    BankServiceDummy bankServiceDummy = mock(BankServiceDummy.class);
 
     private final EmployeeManager employeeManager = new EmployeeManager(employeeRepository, bankService);
 
@@ -30,6 +31,11 @@ class EmployeeManagerTest {
     void testIfFindEmployees(){
         int numberOfEmployees = employeeRepositoryStub.findAll().size();
         assertEquals(3,numberOfEmployees);
+    }
+    @Test
+    void payEmployeesShouldBeCalledOnce(){
+        bankServiceDummy.pay("1",2000);
+        verify(bankServiceDummy, Mockito.times(1)).pay("1", 2000);
     }
     @Test
     void payEmployees(){
