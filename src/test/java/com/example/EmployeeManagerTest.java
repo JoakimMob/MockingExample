@@ -17,7 +17,10 @@ class EmployeeManagerTest {
 
     EmployeeRepository employeeRepository = mock(EmployeeRepository.class);
     BankService bankService = mock(BankService.class);
-    EmployeeRepositoryStub employeeRepositoryStub = new EmployeeRepositoryStub();
+    EmployeeRepositoryStub employeeRepositoryStub = new EmployeeRepositoryStub(
+            List.of((new Employee("1", 2000)),
+                     new Employee("2", 3000),
+                     new Employee("3", 4000)));
 
     BankServiceDummy bankServiceDummy = mock(BankServiceDummy.class);
 
@@ -29,6 +32,9 @@ class EmployeeManagerTest {
 
     @Test
     void testIfFindEmployees(){
+        new Employee("1", 2000);
+        new Employee("2", 3000);
+        new Employee("3", 4000);
         int numberOfEmployees = employeeRepositoryStub.findAll().size();
         assertEquals(3,numberOfEmployees);
     }
