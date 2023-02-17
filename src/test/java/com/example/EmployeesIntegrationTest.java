@@ -2,15 +2,13 @@ package com.example;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class EmployeesIntegrationTest {
 
     EmployeeRepository employeeRepository = new EmployeeRepositoryStub();
     BankService bankService = new BankServiceDummy();
-    private final Employees employees = new Employees(employeeRepository, bankService);
+    private final EmployeeManager employees = new EmployeeManager(employeeRepository, bankService);
 
     @Test
     void testPayEmployees(){
